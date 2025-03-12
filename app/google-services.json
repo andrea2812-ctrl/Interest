@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "946552402861",
+    "firebase_url": "https://interest-523df-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "interest-523df",
+    "storage_bucket": "interest-523df.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946552402861:android:d2ad287e6ec0f1f09a6724",
+        "android_client_info": {
+          "package_name": "com.example.interest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRyGZnw-LxW6f6tZW8ttfl8lvreA3Hja0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,10 +5,47 @@
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/userEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="email@example.com"
+        android:textSize="20sp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/userEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Esempio descrizione 1234"
+        android:textSize="16sp"
+        android:layout_marginTop="64dp"
+        android:gravity="center"/>
 
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome Utente"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/editProfileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifica Profilo"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="72dp"
+        android:layout_gravity="center"/>
+    <Button
+        android:id="@+id/SearchProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cerca Profili"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="72dp"
+        android:layout_gravity="center"/>
 </FrameLayout>

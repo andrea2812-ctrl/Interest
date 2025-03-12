@@ -7,8 +7,8 @@
 
     <item
         android:id="photo"
-        android:title="Photo"
-        android:icon="@drawable/baseline_add_photo_alternate_24"/>
+        android:icon="@drawable/baseline_add_photo_alternate_24"
+        android:title="Crea Post" />
 
     <item
         android:id="profile"

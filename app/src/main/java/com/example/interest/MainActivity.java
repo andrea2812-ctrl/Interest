@@ -8,42 +8,57 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.interest.databinding.ActivityMainBinding;
-import com.example.interest.R;
+
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
+
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
-        // ✅ CORRETTO: Inizializza il binding correttamente
+        // Inizializza il binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot()); // Usa il layout da ViewBinding
+        setContentView(binding.getRoot());
 
-        // ✅ CORRETTO: Imposta il listener per il BottomNavigationView
+        // Imposta il listener per il BottomNavigationView usando if-else invece di switch
         binding.BottomMenu.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.home :
-                    Toast.makeText(this, "Home selezionato", Toast.LENGTH_SHORT).show();
-                    return true;
-                case R.id.photo:
-                    Toast.makeText(this, "Photo selezionato", Toast.LENGTH_SHORT).show();
-                    return true;
-                case R.id.profile:
-                    Toast.makeText(this, "Profile selezionato", Toast.LENGTH_SHORT).show();
-                    return true;
+            Fragment selectedFragment = null;
+
+            // Usa un if-else per selezionare il Fragment giusto
+            if (item.getItemId() == R.id.home) {
+                // Qui puoi impostare il Fragment per la Home
+                selectedFragment = new HomeFragment(); // Assumendo che tu abbia creato HomeFragment
+            } else if (item.getItemId() == R.id.photo) {
+                // Qui puoi impostare il Fragment per la Photo
+                selectedFragment = new PhotoFragment(); // Assumendo che tu abbia creato PhotoFragment
+            } else if (item.getItemId() == R.id.profile) {
+                // Qui puoi impostare il Fragment per il profilo
+                selectedFragment = new ProfileFragment(); // Assumendo che tu abbia creato ProfileFragment
             }
-            return false;
+
+            // Se un Fragment è stato selezionato, sostituirlo
+            if (selectedFragment != null) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, selectedFragment); // R.id.fragment_container è il container dove vuoi aggiungere il Fragment
+                transaction.addToBackStack(null); // Aggiungi la transazione alla back stack per permettere di tornare indietro
+                transaction.commit();
+            }
+
+            return true;
         });
 
-        // ✅ CORRETTO: Applica le insets alla tua `TitleTextView`
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.TitleTextView), (v, insets) -> {
+        // Applica gli insetti alla vista principale
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.tvTitle), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
     }
 }

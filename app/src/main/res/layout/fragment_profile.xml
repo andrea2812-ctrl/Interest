@@ -9,43 +9,50 @@
         android:id="@+id/userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="email@example.com"
-        android:textSize="20sp"
         android:layout_marginTop="40dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="email@example.com"
+        android:textColor="#5FE3DE"
+        android:textSize="20sp" />
+
     <TextView
-        android:id="@+id/userEmail"
+        android:id="@+id/UserDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Esempio descrizione 1234"
-        android:textSize="16sp"
         android:layout_marginTop="64dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="Esempio descrizione 1234"
+        android:textColor="#5FE3DE"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome Utente"
-        android:textSize="24sp"
-        android:textStyle="bold"
         android:layout_marginTop="8dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="Nome Utente"
+        android:textColor="#5FE3DE"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/editProfileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Modifica Profilo"
-        android:layout_marginTop="24dp"
+        android:layout_gravity="center"
         android:layout_marginLeft="72dp"
-        android:layout_gravity="center"/>
+        android:layout_marginTop="24dp"
+        android:text="Modifica Profilo"
+        android:textColor="#5FE3DE" />
+
     <Button
         android:id="@+id/SearchProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cerca Profili"
+        android:layout_gravity="center"
         android:layout_marginTop="24dp"
         android:layout_marginRight="72dp"
-        android:layout_gravity="center"/>
+        android:text="Cerca Profili"
+        android:textColor="#5FE3DE" />
 </FrameLayout>

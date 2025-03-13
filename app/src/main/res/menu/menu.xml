@@ -1,17 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="home"
+        android:id="@+id/home"
         android:title="Home"
         android:icon="@drawable/baseline_add_home_24"/>
 
     <item
-        android:id="photo"
+        android:id="@+id/photo"
         android:icon="@drawable/baseline_add_photo_alternate_24"
         android:title="Crea Post" />
 
     <item
-        android:id="profile"
+        android:id="@+id/profile"
         android:title="Profile"
         android:icon="@drawable/baseline_accessibility_24"/>
 </menu>

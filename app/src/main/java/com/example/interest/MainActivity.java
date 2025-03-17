@@ -1,5 +1,6 @@
 package com.example.interest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.interest.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,21 +35,18 @@ public class MainActivity extends AppCompatActivity {
 
             // Usa un if-else per selezionare il Fragment giusto
             if (item.getItemId() == R.id.home) {
-                // Qui puoi impostare il Fragment per la Home
-                selectedFragment = new HomeFragment(); // Assumendo che tu abbia creato HomeFragment
+                selectedFragment = new HomeFragment();
             } else if (item.getItemId() == R.id.photo) {
-                // Qui puoi impostare il Fragment per la Photo
-                selectedFragment = new PhotoFragment(); // Assumendo che tu abbia creato PhotoFragment
+                selectedFragment = new PhotoFragment();
             } else if (item.getItemId() == R.id.profile) {
-                // Qui puoi impostare il Fragment per il profilo
-                selectedFragment = new ProfileFragment(); // Assumendo che tu abbia creato ProfileFragment
+                selectedFragment = new ProfileFragment();
             }
 
             // Se un Fragment è stato selezionato, sostituirlo
             if (selectedFragment != null) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, selectedFragment); // R.id.fragment_container è il container dove vuoi aggiungere il Fragment
-                transaction.addToBackStack(null); // Aggiungi la transazione alla back stack per permettere di tornare indietro
+                transaction.replace(R.id.fragment_container, selectedFragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
 
@@ -59,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
     }
 }

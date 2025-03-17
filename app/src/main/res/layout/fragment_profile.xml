@@ -44,7 +44,8 @@
         android:layout_marginLeft="72dp"
         android:layout_marginTop="24dp"
         android:text="Modifica Profilo"
-        android:textColor="#5FE3DE" />
+        android:textColor="#5FE3DE"
+        android:textColorLink="#5F6BE3" />
 
     <Button
         android:id="@+id/SearchProfile"
@@ -54,5 +55,6 @@
         android:layout_marginTop="24dp"
         android:layout_marginRight="72dp"
         android:text="Cerca Profili"
-        android:textColor="#5FE3DE" />
+        android:textColor="#5FE3DE"
+        android:textColorLink="#5F6BE3" />
 </FrameLayout>

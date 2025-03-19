@@ -7,10 +7,10 @@ public class Post {
     private String text;
     private long timestamp;
 
-    public Post() {
-        // Costruttore vuoto richiesto da Firebase
-    }
+    // Costruttore vuoto (obbligatorio per Firebase)
+    public Post() {}
 
+    // Costruttore completo
     public Post(String postId, String userId, String userEmail, String text, long timestamp) {
         this.postId = postId;
         this.userId = userId;
@@ -19,23 +19,19 @@ public class Post {
         this.timestamp = timestamp;
     }
 
-    public String getPostId() {
-        return postId;
-    }
+    // Getter e Setter (aggiunti per flessibilità)
+    public String getPostId() { return postId; }
+    public void setPostId(String postId) { this.postId = postId; }
 
-    public String getUserId() {
-        return userId;
-    }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
-    public String getUserEmail() {
-        return userEmail;
-    }
+    public String getUserEmail() { return userEmail; }
+    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 
-    public String getText() {
-        return text;
-    }
+    public String getText() { return text; }
+    public void setText(String text) { this.text = text; }
 
-    public long getTimestamp() {
-        return timestamp;
-    }
+    public long getTimestamp() { return timestamp; }
+    public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
 }

@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Pubblica Post"
-        android:textColor="#5FE3DE"
         android:textColorLink="#5F6BE3" />
 
     <TextView

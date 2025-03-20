@@ -6,20 +6,19 @@ public class Post {
     private String userEmail;
     private String text;
     private long timestamp;
+    private int likeCount; // Nuovo campo
 
-    // Costruttore vuoto (obbligatorio per Firebase)
     public Post() {}
 
-    // Costruttore completo
-    public Post(String postId, String userId, String userEmail, String text, long timestamp) {
+    public Post(String postId, String userId, String userEmail, String text, long timestamp, int likeCount) {
         this.postId = postId;
         this.userId = userId;
         this.userEmail = userEmail;
         this.text = text;
         this.timestamp = timestamp;
+        this.likeCount = likeCount;
     }
 
-    // Getter e Setter (aggiunti per flessibilità)
     public String getPostId() { return postId; }
     public void setPostId(String postId) { this.postId = postId; }
 
@@ -34,4 +33,7 @@ public class Post {
 
     public long getTimestamp() { return timestamp; }
     public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
+
+    public int getLikeCount() { return likeCount; }
+    public void setLikeCount(int likeCount) { this.likeCount = likeCount; }
 }

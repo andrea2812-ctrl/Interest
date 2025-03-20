@@ -36,10 +36,21 @@
         android:id="@+id/btnLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="Mi Piace"
-        android:textColor="#5FE3DE"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPostText" />
+
+    <!-- Contatore Mi Piace (Ora posizionato a destra del pulsante) -->
+    <TextView
+        android:id="@+id/tvLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="0"
+        android:textColor="#5FE3DE"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/btnLike"
         app:layout_constraintTop_toBottomOf="@id/tvPostText" />
 
     <!-- Bottone Elimina -->
@@ -47,7 +58,7 @@
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="Elimina"
         android:textColor="#FF0000"
         app:layout_constraintEnd_toEndOf="parent"

@@ -13,57 +13,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email"
+        android:textColor="#5FE3DE"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Nome dell'utente -->
     <EditText
         android:id="@+id/nameEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Inserisci il tuo nome"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/emailTextView"
+        android:hint="Inserisci il tuo nome"
+        android:textColor="#5FE3DE"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/emailTextView" />
 
     <!-- Bio dell'utente -->
     <EditText
         android:id="@+id/bioEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Scrivi la tua bio"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/nameEditText"
+        android:hint="Scrivi la tua bio"
+        android:textColor="#5FE3DE"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/nameEditText" />
 
     <!-- Bottone Salva modifiche -->
     <Button
         android:id="@+id/saveButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Salva Modifiche"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/bioEditText"
+        android:text="Salva Modifiche"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/bioEditText" />
 
     <!-- Bottone Logout -->
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        android:background="@android:color/holo_red_light"
-        android:textColor="@android:color/white"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/saveButton"
+        android:text="Logout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/saveButton" />
 
     <!-- ListView per i post -->
     <ListView

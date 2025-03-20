@@ -29,11 +29,17 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Imposta il listener per il BottomNavigationView usando if-else invece di switch
+        // Carica direttamente il fragment della home all'avvio
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment()) // Sostituisci con il tuo fragment home
+                    .commit();
+        }
+
+        // Imposta il listener per il BottomNavigationView
         binding.BottomMenu.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
 
-            // Usa un if-else per selezionare il Fragment giusto
             if (item.getItemId() == R.id.home) {
                 selectedFragment = new HomeFragment();
             } else if (item.getItemId() == R.id.photo) {
@@ -42,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment = new ProfileFragment();
             }
 
-            // Se un Fragment è stato selezionato, sostituirlo
             if (selectedFragment != null) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, selectedFragment);
@@ -60,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+
 
     @Override
     protected void onStart() {

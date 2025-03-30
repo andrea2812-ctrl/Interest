@@ -91,7 +91,11 @@ public class ProfileFragment extends Fragment {
 
     private void loadUserData() {
         String userId = user.getUid();
-        emailTextView.setText(user.getEmail());
+        String email = user.getEmail();
+
+        if (email != null) {
+            emailTextView.setText(email);
+        }
 
         usersReference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -100,7 +104,13 @@ public class ProfileFragment extends Fragment {
                     String name = snapshot.child("name").getValue(String.class);
                     String bio = snapshot.child("bio").getValue(String.class);
 
-                    if (name != null) nameEditText.setText(name);
+                    // Se il nome è nullo o vuoto, usa la parte prima della @
+                    if (name == null || name.trim().isEmpty()) {
+                        name = email != null ? email.substring(0, email.indexOf("@")) : "NomeUtente";
+                        usersReference.child(userId).child("name").setValue(name); // Salva nel DB
+                    }
+
+                    nameEditText.setText(name);
                     if (bio != null) bioEditText.setText(bio);
                 }
             }

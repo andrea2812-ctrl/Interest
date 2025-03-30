@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -42,8 +43,8 @@ public class HomeFragment extends Fragment {
         adapter = new PostsAdapter(getContext(), postList);
         listViewPosts.setAdapter(adapter);
 
-        // Recupera i post dal database
-        postsRef.addValueEventListener(new ValueEventListener() {
+        // Recupera i post dal database ordinati per timestamp decrescente
+        postsRef.orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 postList.clear();
@@ -51,6 +52,10 @@ public class HomeFragment extends Fragment {
                     Post post = postSnapshot.getValue(Post.class);
                     postList.add(post);
                 }
+
+                // Ordina la lista in ordine decrescente per timestamp
+                Collections.sort(postList, (p1, p2) -> Long.compare(p2.getTimestamp(), p1.getTimestamp()));
+
                 adapter.notifyDataSetChanged();  // Notifica l'adapter che i dati sono cambiati
             }
 

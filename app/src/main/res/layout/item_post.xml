@@ -1,47 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <!-- Nome dell'utente -->
+    <!-- Sezione Profilo -->
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_profile_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Nome Utente -->
     <TextView
-        android:id="@+id/tvAccount"
+        android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="Nome Utente"
         android:textColor="#5FE3DE"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/imgProfile"
+        app:layout_constraintStart_toEndOf="@id/imgProfile"
+        app:layout_constraintTop_toTopOf="@id/imgProfile" />
+
+    <!-- Email Utente (opzionale) -->
+    <TextView
+        android:id="@+id/tvUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textColor="#5FE3DE"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/tvUsername"
+        app:layout_constraintTop_toBottomOf="@id/tvUsername"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Contenuto del Post (Titolo) -->
+    <TextView
+        android:id="@+id/tvAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/imgProfile" />
 
     <!-- Testo del post -->
     <TextView
         android:id="@+id/tvPostText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Testo del post"
+        android:text="Testo del post..."
         android:textColor="#5FE3DE"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAccount" />
+        app:layout_constraintTop_toBottomOf="@id/tvAccount"/>
 
-    <!-- Bottone Mi piace -->
+    <!-- Pulsante "Mi Piace" -->
     <Button
         android:id="@+id/btnLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Mi Piace"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPostText" />
+        app:layout_constraintTop_toBottomOf="@id/tvPostText"/>
 
-    <!-- Contatore Mi Piace (Ora posizionato a destra del pulsante) -->
+    <!-- Contatore dei Like -->
     <TextView
         android:id="@+id/tvLikeCount"
         android:layout_width="wrap_content"
@@ -51,17 +85,17 @@
         android:textColor="#5FE3DE"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/btnLike"
-        app:layout_constraintTop_toBottomOf="@id/tvPostText" />
+        app:layout_constraintTop_toBottomOf="@id/tvPostText"/>
 
-    <!-- Bottone Elimina -->
+    <!-- Pulsante "Elimina" -->
     <Button
         android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Elimina"
         android:textColor="#FF0000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPostText" />
+        app:layout_constraintTop_toBottomOf="@id/tvPostText"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

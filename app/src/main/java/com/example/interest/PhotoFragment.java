@@ -26,6 +26,7 @@ public class PhotoFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private DatabaseReference usersReference;
 
     public PhotoFragment() {
         // Required empty public constructor
@@ -39,18 +40,14 @@ public class PhotoFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("posts");
+        usersReference = FirebaseDatabase.getInstance().getReference("users");
 
         // Collega gli elementi XML
         editText = view.findViewById(R.id.editText);
         postButton = view.findViewById(R.id.button);
 
         // Listener del bottone
-        postButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                publishPost();
-            }
-        });
+        postButton.setOnClickListener(v -> publishPost());
 
         return view;
     }
@@ -68,24 +65,57 @@ public class PhotoFragment extends Fragment {
             String postId = databaseReference.push().getKey(); // Genera un ID univoco per il post
             String userEmail = user.getEmail();
 
-            // Creiamo la mappa con i dati del post
-            Map<String, Object> postMap = new HashMap<>();
-            postMap.put("postId", postId);
-            postMap.put("userId", userId);
-            postMap.put("userEmail", userEmail);
-            postMap.put("text", postText);
-            postMap.put("timestamp", System.currentTimeMillis());
+            // Recupera lo username e l'immagine del profilo (base64) dell'utente
+            getUserProfileData(userId, (userName, profileImageBase64) -> {
+                // Crea la mappa con i dati del post
+                Map<String, Object> postMap = new HashMap<>();
+                postMap.put("postId", postId);
+                postMap.put("userId", userId);
+                postMap.put("userEmail", userEmail);
+                postMap.put("userName", userName); // Aggiungi lo username
+                postMap.put("text", postText);
+                postMap.put("timestamp", System.currentTimeMillis());
 
-            if (postId != null) {
-                databaseReference.child(postId).setValue(postMap).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getActivity(), "Post pubblicato!", Toast.LENGTH_SHORT).show();
-                        editText.setText(""); // Svuota il campo dopo la pubblicazione
-                    } else {
-                        Toast.makeText(getActivity(), "Errore nella pubblicazione!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                // Aggiungi l'immagine in base64 se disponibile
+                if (profileImageBase64 != null) {
+                    postMap.put("profileImageBase64", profileImageBase64);
+                }
+
+                if (postId != null) {
+                    databaseReference.child(postId).setValue(postMap).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Post pubblicato!", Toast.LENGTH_SHORT).show();
+                            editText.setText(""); // Svuota il campo dopo la pubblicazione
+                        } else {
+                            Toast.makeText(getActivity(), "Errore nella pubblicazione!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
         }
+    }
+
+    // Funzione per recuperare lo username e l'immagine del profilo dell'utente
+    private void getUserProfileData(String userId, ProfileDataCallback callback) {
+        usersReference.child(userId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null) {
+                String userName = task.getResult().child("userName").getValue(String.class);
+                String profileImageBase64 = task.getResult().child("profileImageBase64").getValue(String.class);
+
+                // Se lo username non è presente, usa una stringa di default
+                if (userName == null || userName.isEmpty()) {
+                    userName = "Utente";
+                }
+
+                callback.onCallback(userName, profileImageBase64);
+            } else {
+                callback.onCallback("Utente", null);
+            }
+        });
+    }
+
+    // Interfaccia di callback per passare i dati
+    private interface ProfileDataCallback {
+        void onCallback(String userName, String profileImageBase64);
     }
 }

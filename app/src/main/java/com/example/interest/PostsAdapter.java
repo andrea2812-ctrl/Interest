@@ -1,12 +1,16 @@
 package com.example.interest;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+
 import java.util.List;
 
 public class PostsAdapter extends BaseAdapter {
@@ -55,25 +60,42 @@ public class PostsAdapter extends BaseAdapter {
 
         Post post = postList.get(position);
 
-        TextView tvAccount = convertView.findViewById(R.id.tvAccount);
+        // Usa gli ID corretti definiti nel layout
+        TextView tvUsername = convertView.findViewById(R.id.tvUsername);
+        TextView tvUserEmail = convertView.findViewById(R.id.tvUserEmail);
         TextView tvPostText = convertView.findViewById(R.id.tvPostText);
         Button btnLike = convertView.findViewById(R.id.btnLike);
         Button btnDelete = convertView.findViewById(R.id.btnDelete);
-        TextView tvLikeCount = convertView.findViewById(R.id.tvLikeCount); // Contatore dei like
+        TextView tvLikeCount = convertView.findViewById(R.id.tvLikeCount);
+        ImageView imgProfile = convertView.findViewById(R.id.imgProfile);
 
-        tvAccount.setText(post.getUserEmail());
+        // Log per il debug dei dati
+        Log.d("PostsAdapter", "Nome utente: " + post.getUserName());
+        Log.d("PostsAdapter", "Email: " + post.getUserEmail());
+        Log.d("PostsAdapter", "ProfileImage (Base64): " + post.getProfileImageBase64());
+
+        // Imposta il nome utente e l'email (verificando che non siano null)
+        tvUsername.setText(post.getUserName() != null ? post.getUserName() : "Nome non disponibile");
+        if (tvUserEmail != null) {
+            tvUserEmail.setText(post.getUserEmail() != null ? post.getUserEmail() : "Email non disponibile");
+        }
+
+        // Carica l'immagine del profilo da Base64
+        loadImageFromBase64(post.getProfileImageBase64(), imgProfile);
+
+        // Imposta il testo del post
         tvPostText.setText(post.getText());
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        // Verifica se l'utente corrente è il creatore del post
+        // Mostra o nascondi il pulsante "Elimina" in base all'utente corrente
         if (currentUser != null && currentUser.getUid().equals(post.getUserId())) {
             btnDelete.setVisibility(View.VISIBLE);
         } else {
             btnDelete.setVisibility(View.GONE);
         }
 
-        // Definisci postRef una sola volta
+        // Definisci postRef una sola volta per il post corrente
         DatabaseReference postRef = postsReference.child(post.getPostId());
 
         // Recupera il numero di like da Firebase
@@ -93,30 +115,28 @@ public class PostsAdapter extends BaseAdapter {
             }
         });
 
-        // Recupera la lista degli utenti che hanno messo "Mi Piace" su questo post
+        // Gestione del pulsante "Mi Piace"
         DatabaseReference likesRef = postRef.child("likes");
-
         btnLike.setOnClickListener(v -> {
-            // Controlla se l'utente ha già messo "Mi Piace" al post
             if (currentUser != null) {
                 String userId = currentUser.getUid();
                 likesRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            // Se l'utente ha già messo "Mi Piace", rimuovilo
+                            // Rimuovi il like se l'utente ha già messo "Mi Piace"
                             likesRef.child(userId).removeValue();
                             int newLikeCount = post.getLikeCount() - 1;
                             post.setLikeCount(newLikeCount);
                             tvLikeCount.setText(String.valueOf(newLikeCount));
-                            postRef.child("likeCount").setValue(newLikeCount); // Aggiorna Firebase
+                            postRef.child("likeCount").setValue(newLikeCount);
                         } else {
-                            // Se l'utente non ha messo "Mi Piace", aggiungilo
+                            // Aggiungi il like
                             likesRef.child(userId).setValue(true);
                             int newLikeCount = post.getLikeCount() + 1;
                             post.setLikeCount(newLikeCount);
                             tvLikeCount.setText(String.valueOf(newLikeCount));
-                            postRef.child("likeCount").setValue(newLikeCount); // Aggiorna Firebase
+                            postRef.child("likeCount").setValue(newLikeCount);
                         }
                     }
 
@@ -128,7 +148,7 @@ public class PostsAdapter extends BaseAdapter {
             }
         });
 
-        // Logica per il pulsante "Elimina"
+        // Gestione del pulsante "Elimina"
         btnDelete.setOnClickListener(v -> {
             postRef.removeValue().addOnSuccessListener(aVoid -> {
                 removePostById(post.getPostId());
@@ -143,13 +163,28 @@ public class PostsAdapter extends BaseAdapter {
         return convertView;
     }
 
-    // Metodo per rimuovere un post tramite ID
+    // Metodo per rimuovere un post dalla lista tramite l'ID
     private void removePostById(String postId) {
         for (int i = 0; i < postList.size(); i++) {
             if (postList.get(i).getPostId().equals(postId)) {
                 postList.remove(i);
-                break; // Esci dal ciclo dopo la rimozione
+                break;
             }
+        }
+    }
+
+    // Metodo per decodificare la stringa Base64 e caricare l'immagine nel ImageView
+    private void loadImageFromBase64(String base64String, ImageView imageView) {
+        if (base64String != null && !base64String.isEmpty()) {
+            try {
+                byte[] decodedString = Base64.decode(base64String, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                imageView.setImageBitmap(decodedByte);
+            } catch (IllegalArgumentException e) {
+                Log.e("PostsAdapter", "Errore nella decodifica dell'immagine: " + e.getMessage());
+            }
+        } else {
+            Log.d("PostsAdapter", "La stringa Base64 è vuota o nulla");
         }
     }
 }

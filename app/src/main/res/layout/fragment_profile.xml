@@ -7,6 +7,28 @@
     android:padding="16dp"
     tools:context=".ProfileFragment">
 
+    <!-- Immagine del profilo -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_profile_placeholder"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Bottone per cambiare immagine profilo -->
+    <Button
+        android:id="@+id/changeProfileImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cambia Immagine"
+        app:layout_constraintTop_toBottomOf="@id/profileImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- Email dell'utente -->
     <TextView
         android:id="@+id/emailTextView"
@@ -16,9 +38,9 @@
         android:textColor="#5FE3DE"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/changeProfileImageButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Nome dell'utente -->
     <EditText
@@ -28,9 +50,9 @@
         android:layout_marginTop="16dp"
         android:hint="Inserisci il tuo nome"
         android:textColor="#5FE3DE"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailTextView" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Bio dell'utente -->
     <EditText
@@ -40,9 +62,9 @@
         android:layout_marginTop="8dp"
         android:hint="Scrivi la tua bio"
         android:textColor="#5FE3DE"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameEditText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameEditText" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Bottone Salva modifiche -->
     <Button
@@ -51,9 +73,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Salva Modifiche"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bioEditText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bioEditText" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Bottone Logout -->
     <Button
@@ -62,9 +84,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Logout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saveButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/saveButton" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- ListView per i post -->
     <ListView
@@ -76,5 +98,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
